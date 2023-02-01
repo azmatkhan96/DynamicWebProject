@@ -15,7 +15,7 @@ use App\Http\Controllers\AdminController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::get('/dashboard', function () {
@@ -25,5 +25,8 @@ Route::get('/dashboard', function () {
 require __DIR__.'/auth.php';
 
 Route::controller(AdminController::class)->group(function(){
-    Route::get('/admin/logout','destroy')->name('admin.logout');
+    Route::get('/admin/logout', 'destroy')->name('admin.logout');
+    Route::get('/admin/profile', 'Profile')->name('admin.profile');
+    Route::get('/admin-profile-edit','editAdminProfile')->name('edit-admin-Profile');
+    Route::post('/store-admin-data','storeAdminData')->name('save-admin-data');
 });
