@@ -7,7 +7,7 @@
             <div class="col-lg-4">
                 <div class="card"><br><br>
                     <center>
-                        <img class="img-thumbnail" width="200" src="{{URL::to('backend/assets/images/small/img-8.jpg')}}" alt="Card image cap">
+                        <img class="img-thumbnail" width="200" src="{{(!empty($adminData->profile_image)) ? URL::to('upload/admin_img/'.$adminData->profile_image) : URL::to('upload/no_image.jpg')}}" alt="Card image cap">
                     </center>
                    
                     <div class="card-body">

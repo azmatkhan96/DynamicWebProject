@@ -13,14 +13,14 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <form action="">
+                        <h4 class="card-title">Edit Profile</h4>
+                        <form action="{{route('save-admin-data')}}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <h4 class="card-title">Edit Profile</h4>
                         
                             <div class="row mb-3">
                                 <label for="example-text-input" class="col-sm-2 col-form-label">Name:</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" type="text"  id="" value="{{$editadminData->name}}">
+                                    <input class="form-control" type="text"  id="" name='username'  value="{{$editadminData->name}}">
                                 </div>
                             </div>
                             <!-- end row -->
@@ -28,7 +28,7 @@
                             <div class="row mb-3">
                                 <label for="example-text-input" class="col-sm-2 col-form-label">Email ID:</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" type="text"  id="" value="{{$editadminData->email}}">
+                                    <input class="form-control" type="text"  id="" name="email" value="{{$editadminData->email}}" required>
                                 </div>
                             </div>
                             <!-- end row -->
@@ -44,13 +44,13 @@
                             <div class="row mb-3">
                                 <label for="example-text-input" class="col-sm-2 col-form-label">Profile Image:</label>
                                 <div class="col-sm-10">
-                                    <img class="img-thumbnail" width="200"  id="showImage" src="" alt="Card image cap">
+                                    <img class="img-thumbnail" width="200"  id="showImage" src="{{(!empty($editadminData->profile_image)) ? URL::to('upload/admin_img/'.$editadminData->profile_image) : URL::to('upload/no_image.jpg')}}" alt="Card image cap">
                                 </div>
                             </div>
                             <!-- end row -->
 
-                            <button type="submit" class="btn btn-success waves-effect waves-light">
-                                <i class="ri-check-line align-middle me-2"></i> Saves
+                            <button type="submit" class="btn btn-success waves-effect waves-light saveData">
+                                <i class="ri-check-line align-middle me-2"></i> Save
                             </button>
                         </form>
                     </div>
