@@ -1,5 +1,10 @@
 @extends('layouts.guest')
 
+@section('links')
+     {{-- Toastr message link  --}}
+     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
+@endsection
+
 @section('login&register')
     
   
@@ -76,3 +81,31 @@
 <!-- end container -->
       
 @endsection
+
+@push('scripts')
+     {{-- Toastr js link --}}
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+     {{-- Toastr message Code --}}
+    <script>
+        @if(Session::has('message'))
+        var type = "{{ Session::get('alert-type','info') }}"
+        switch(type){
+            case 'info':
+            toastr.info(" {{ Session::get('message') }} ");
+            break;
+
+            case 'success':
+            toastr.success(" {{ Session::get('message') }} ");
+            break;
+
+            case 'warning':
+            toastr.warning(" {{ Session::get('message') }} ");
+            break;
+
+            case 'error':
+            toastr.error(" {{ Session::get('message') }} ");
+            break; 
+        }
+        @endif 
+    </script>
+@endpush

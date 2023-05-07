@@ -27,6 +27,8 @@
         <link href="{{URL::to('backend/assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
         <!-- App Css-->
         <link href="{{URL::to('backend/assets/css/app.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
+        {{-- Toastr message link  --}}
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
         @yield('links')
     </head>
 
@@ -92,6 +94,31 @@
 
         <!-- App js -->
         <script src="{{URL::to('backend/assets/js/app.js')}}"></script>
+         {{-- Toastr js link --}}
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+         {{-- Toastr message --}}
+        <script>
+        @if(Session::has('message'))
+        var type = "{{ Session::get('alert-type','info') }}"
+        switch(type){
+            case 'info':
+            toastr.info(" {{ Session::get('message') }} ");
+            break;
+
+            case 'success':
+            toastr.success(" {{ Session::get('message') }} ");
+            break;
+
+            case 'warning':
+            toastr.warning(" {{ Session::get('message') }} ");
+            break;
+
+            case 'error':
+            toastr.error(" {{ Session::get('message') }} ");
+            break; 
+        }
+        @endif 
+        </script>
         @stack('scripts')
     </body>
 

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
-
+use Illuminate\Support\Facades\Redirect;
 
 class AdminController extends Controller
 {
@@ -17,7 +17,12 @@ class AdminController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/login');
+        $notification = array(
+            'message' => 'Logout Successfully ',
+            'alert-type' => 'success'
+        );
+
+        return redirect('/login')->with($notification);
     }
 
     public function Profile()
@@ -53,6 +58,39 @@ class AdminController extends Controller
         }
         $data->save();
 
-        return \redirect()->route('admin.profile');
+        $notification = array(
+            'message' => 'Admin Profile Updated Successfully',
+            'alert-type' => 'success'
+        );
+
+        return \redirect()->route('admin.profile')->with($notification);
+    }
+
+    public function changePassword()
+    {
+       return view('admin.changePasswordPage');
+    }
+
+    public function savePassword(Request $request)
+    {
+           $validate = $request->validate([
+            'oldPassword' =>'required',
+            'newPassword' =>'required|string|min:8',
+            'confirmPassword'=> 'required|string|min:8|same:newPassword'
+           ]);
+
+            $data = $request->all();
+            $successPswd = User::updatePassword($data);
+
+            if($successPswd)
+            {  
+                session()->flash('message','Admin Password Changed Successfully');
+                return \redirect('/');
+            }
+            else
+            {
+                session()->flash('message','Admin Password Not Match');
+                return \redirect()->back();
+            }
     }
 }

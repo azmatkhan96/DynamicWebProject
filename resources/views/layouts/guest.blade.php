@@ -24,6 +24,7 @@
         <link href="{{URL::to('backend/assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
         <!-- App Css-->
         <link href="{{URL::to('backend/assets/css/app.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
+          @yield('links')
 
     </head>
     <body class="auth-body-bg">
@@ -40,5 +41,6 @@
         <script src="{{URL::to('backend/assets/libs/node-waves/waves.min.js')}}"></script>
 
         <script src="{{URL::to('backend/assets/js/app.js')}}"></script>
+        @stack('scripts')
     </body>
 </html>
