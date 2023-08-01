@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-
+use  App\Http\Controllers\Home\HomeSliderController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,6 +15,10 @@ use App\Http\Controllers\AdminController;
 */
 
 Route::get('/', function () {
+    return view('frontend.index');
+});
+
+Route::get('/login', function () {
     return view('auth.login');
 });
 
@@ -31,4 +35,10 @@ Route::controller(AdminController::class)->group(function(){
     Route::post('/store-admin-data','storeAdminData')->name('save-admin-data');
     Route::get('/change-password','changePassword')->name('changePassword');
     Route::post('/save-password','savePassword')->name('savePassword');
+});
+
+//Home silde All Route
+Route::controller(HomeSliderController::class)->group(function(){
+    Route::get('/home/slide', 'HomeSlider')->name('home.slide');
+    
 });
